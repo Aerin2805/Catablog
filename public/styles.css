@@ -1,0 +1,38 @@
+body {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.card {
+    margin-top: 50px;
+    border: none;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control.bg-dark {
+    border: 1px solid #ced4da;
+}
+
+.form-control.bg-dark:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn-block {
+    padding: 10px;
+}
