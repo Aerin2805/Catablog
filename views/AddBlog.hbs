@@ -5,11 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{> header}}
+    <link rel="stylesheet" href="/styles.css">
     <title>Add Blog</title>
 </head>
 
-<body class="bg-dark text-white">
+<body>
     {{> nav}}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card bg-dark text-white">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4">Add New Blog</h2>
+                        <form action="/blog" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control bg-dark text-white" id="title" name="title"
+                                    placeholder="Enter the blog title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="body">Body</label>
+                                <textarea class="form-control bg-dark text-white" id="body" name="body" rows="10"
+                                    placeholder="Enter the blog content" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="coverImage">Cover Image</label>
+                                <input type="file" class="form-control-file bg-dark text-white" id="coverImage"
+                                    name="coverImage" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Add Blog</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {{> script}}
 </body>
 

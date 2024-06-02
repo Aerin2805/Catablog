@@ -5,12 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{> header}}
+    <link rel="stylesheet" href="/styles.css">
     <title>Home</title>
 </head>
 
-<body class="bg-dark text-white">
+<body>
     {{> nav}}
-    {{user}}
+    <div class="container mt-5">
+        <div class="row">
+            {{#each blogs}}
+            <div class="col-md-4 mb-4">
+                <div class="card bg-dark text-white" style="width: 18rem;">
+                    <img src="{{this.coverImageURL}}" class="card-img-top" alt="Cover image of {{this.title}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.title}}</h5>
+                        <a href="/blog/{{this._id}}" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
     {{> script}}
 </body>
 

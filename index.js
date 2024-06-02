@@ -4,6 +4,8 @@ const path = require('path');
 const hbs = require('hbs');
 const ConnectDB = require("./connection");
 const UserRoutes = require("./routes/user.routes");
+const BlogRoutes = require("./routes/blog.routes");
+const Blog = require("./models/blog.models");
 const cookieParser = require("cookie-parser");
 const { CheckForAuthenticationCookie } = require("./middlewares/auth.middlewares");
 dotenv.config();
@@ -26,15 +28,21 @@ ConnectDB();
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(CheckForAuthenticationCookie("token"));
-
 //Routes
-app.get("/", (req, res) => {
-    //console.log(req.user);
-    res.render("home", {
-        user: JSON.stringify(req.user),
-    });
-})
+app.get("/", async (req, res) => {
+    try {
+        const allBlogs = await Blog.find({});
+        res.render("home", {
+            user: req.user,
+            blogs: allBlogs,
+        });
+    } catch (error) {
+        console.error("Error fetching blogs:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 app.use("/user", UserRoutes);
+app.use("/blog", BlogRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server Running on PORT : ${PORT}`);
