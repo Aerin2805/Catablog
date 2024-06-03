@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const { HandleAddNewBlog } = require("../controller/blog.controller");
+const Blog = require("../models/blog.models");
 const router = express.Router();
 
 
@@ -21,7 +22,24 @@ router.get("/add-new", (req, res) => {
     return res.render("AddBlog", {
         user: req.user
     })
+});
+
+router.get("/:id", async (req, res) => {
+
+    try {
+        const blog = await Blog.findById(req.params.id).populate("createdBy");
+        //  console.log("Blog", blog)
+        res.status(200).render("blog", {
+            user: req.user,
+            blog: blog
+        });
+
+    } catch (error) {
+        res.json({ Error: "Blog not found", error });
+    }
+
 })
+
 router.post("/", upload.single("coverImage"), HandleAddNewBlog);
 
 module.exports = router;

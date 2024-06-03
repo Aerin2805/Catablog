@@ -7,6 +7,30 @@
     {{> header}}
     <link rel="stylesheet" href="/styles.css">
     <title>Home</title>
+    <style>
+        .card-img-top {
+            width: 100%;
+            height: 250px;
+            /* Set a fixed height */
+            object-fit: cover;
+            /* Ensures the image covers the entire area without distortion */
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-text {
+            flex-grow: 1;
+            /* Pushes the button to the bottom */
+        }
+
+        .card {
+            height: 100%;
+            /* Ensures all cards have equal height */
+        }
+    </style>
 </head>
 
 <body>
@@ -15,11 +39,11 @@
         <div class="row">
             {{#each blogs}}
             <div class="col-md-4 mb-4">
-                <div class="card bg-dark text-white" style="width: 18rem;">
+                <div class="card bg-dark text-white h-100">
                     <img src="{{this.coverImageURL}}" class="card-img-top" alt="Cover image of {{this.title}}">
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{this.title}}</h5>
-                        <a href="/blog/{{this._id}}" class="btn btn-primary">Read More</a>
+                        <a href="/blog/{{this._id}}" class="btn btn-primary mt-auto">Let's Explore</a>
                     </div>
                 </div>
             </div>

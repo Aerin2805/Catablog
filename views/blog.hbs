@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{> header}}
+    <link rel="stylesheet" href="/styles.css">
+    <title>{{blog.title}}</title>
+    <style>
+        .blog-cover-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .blog-content {
+            padding: 20px;
+        }
+
+        .card-text pre {
+            white-space: pre-wrap;
+            /* Ensures text wraps within the block */
+            max-height: 400px;
+            /* Adjust as needed for your design */
+            overflow-y: auto;
+            /* Adds vertical scroll if content exceeds max-height */
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .author-info img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .author-info .author-name {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+
+<body>
+    {{> nav}}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card bg-dark text-white">
+                    <img src="{{blog.coverImageURL}}" class="card-img-top blog-cover-image"
+                        alt="Cover image of {{blog.title}}">
+                    <div class="card-body blog-content">
+                        <h2 class="card-title">{{blog.title}}</h2>
+                        <div class="card-text">
+                            <pre>{{blog.body}}</pre>
+                        </div>
+                        <div class="author-info">
+                            <img src="{{blog.createdBy.profileImageURL}}" alt="Profile image of {{user.name}}">
+                            <span class="author-name">{{blog.createdBy.fullname}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{> script}}
+</body>
+
+</html>
