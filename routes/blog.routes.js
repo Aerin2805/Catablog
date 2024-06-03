@@ -3,6 +3,7 @@ const multer = require("multer");
 const path = require("path");
 const { HandleAddNewBlog } = require("../controller/blog.controller");
 const Blog = require("../models/blog.models");
+const Comment = require("../models/comments.models");
 const router = express.Router();
 
 
@@ -28,10 +29,12 @@ router.get("/:id", async (req, res) => {
 
     try {
         const blog = await Blog.findById(req.params.id).populate("createdBy");
-        //  console.log("Blog", blog)
+        const comments = await Comment.find({ blogId: req.params.id }).populate("createdBy")
+        //console.log("comments", comments)
         res.status(200).render("blog", {
             user: req.user,
-            blog: blog
+            blog: blog,
+            comments: comments
         });
 
     } catch (error) {
@@ -39,6 +42,32 @@ router.get("/:id", async (req, res) => {
     }
 
 })
+
+router.post("/comment/:blogId", async (req, res) => {
+
+    try {
+        const { content } = req.body;
+        const trimmedContent = content.trim();
+
+        if (trimmedContent.length < 1) {
+            return res.status(400).redirect(`/blog/${req.params.blogId}`, {
+                error: "Please write at least one character."
+            });
+        }
+
+        await Comment.create({
+            content: req.body.content,
+            blogId: req.params.blogId,
+            createdBy: req.user._id,
+        });
+
+        res.status(200).redirect(`/blog/${req.params.blogId}`);
+    } catch (error) {
+        res.status(404).json({ Error: "Please filled all field correctly" });
+    }
+
+
+});
 
 router.post("/", upload.single("coverImage"), HandleAddNewBlog);
 

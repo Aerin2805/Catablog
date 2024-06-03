@@ -21,11 +21,8 @@
 
         .card-text pre {
             white-space: pre-wrap;
-            /* Ensures text wraps within the block */
             max-height: 400px;
-            /* Adjust as needed for your design */
             overflow-y: auto;
-            /* Adds vertical scroll if content exceeds max-height */
         }
 
         .author-info {
@@ -44,6 +41,43 @@
         .author-info .author-name {
             font-size: 1.2em;
         }
+
+        .comment-form {
+            margin-top: 30px;
+        }
+
+        .comment-form textarea {
+            resize: vertical;
+        }
+
+        .comments-section {
+            margin-top: 40px;
+        }
+
+        .comment {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .comment img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .comment-content {
+            background-color: #343a40;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .comment-content .comment-author {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 
@@ -61,8 +95,42 @@
                             <pre>{{blog.body}}</pre>
                         </div>
                         <div class="author-info">
-                            <img src="{{blog.createdBy.profileImageURL}}" alt="Profile image of {{user.name}}">
+                            <img src="{{blog.createdBy.profileImageURL}}"
+                                alt="Profile image of {{blog.createdBy.fullname}}">
                             <span class="author-name">{{blog.createdBy.fullname}}</span>
+                        </div>
+                        <div class="comment-form">
+                            {{#if user}}
+                            <h4>Leave a Comment</h4>
+                            <form action="/blog/comment/{{blog._id}}" method="POST">
+                                <div class="form-group">
+                                    <label for="commentBody">Comment</label>
+                                    <textarea class="form-control bg-dark text-white" id="commentBody" name="content"
+                                        rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Post Comment</button>
+                                <div class="form-group">
+                                    {{#if error}}
+                                    <div class="alert alert-danger" role="alert">{{error}}</div>
+                                    {{/if}}
+                                </div>
+                            </form>
+                            {{else}}
+                            <p>Please <a href="/user/signin">sign in</a> to leave a comment.</p>
+                            {{/if}}
+                        </div>
+                        <div class="comments-section">
+                            <h4>Comments ({{comments.length}})</h4>
+                            {{#each comments}}
+                            <div class="comment">
+                                <img src="{{this.createdBy.profileImageURL}}"
+                                    alt="Profile image of {{this.createdBy.fullname}}">
+                                <div class="comment-content">
+                                    <div class="comment-author">{{this.createdBy.fullname}}</div>
+                                    <div class="comment-text">{{this.content}}</div>
+                                </div>
+                            </div>
+                            {{/each}}
                         </div>
                     </div>
                 </div>

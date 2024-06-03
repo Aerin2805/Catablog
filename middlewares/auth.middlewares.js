@@ -8,10 +8,13 @@ function CheckForAuthenticationCookie(cookieName) {
         try {
             const userPayload = validateToken(tokenCookieValue);
             req.user = userPayload;
-            return next();
-        } catch (error) { return next(); }
+            // console.log(req.user)
+        } catch (error) {
+            // Optionally handle the error, such as clearing the invalid cookie
+            res.clearCookie(cookieName);
+        }
 
-
+        return next();
     };
 }
 
