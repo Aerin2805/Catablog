@@ -118,6 +118,12 @@
                             {{else}}
                             <p>Please <a href="/user/signin">sign in</a> to leave a comment.</p>
                             {{/if}}
+                            {{#if isAuthor}}
+                            <form action="/blog/delete/{{blog._id}}" method="Post" class="delete-btn">
+                                <button type="submit" class="btn btn-danger">Delete Blog</button>
+                                <a href="/blog/edit/{{blog._id}}" class="btn btn-warning edit-btn">Edit Blog</a>
+                            </form>
+                            {{/if}}
                         </div>
                         <div class="comments-section">
                             <h4>Comments ({{comments.length}})</h4>
