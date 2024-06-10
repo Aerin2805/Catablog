@@ -36,7 +36,7 @@ router.get('/edit/:id', CheckForAuthenticationCookie('token'), async (req, res) 
         if (req.user._id.toString() !== blog.createdBy.toString()) {
             return res.status(403).json({ error: "Unauthorized" });
         }
-        res.render('editBlog', { blog: blog, user: req.user });
+        res.render('editblog', { blog: blog, user: req.user });
     } catch (error) {
         res.status(404).json({ error: "Blog not found" });
     }
